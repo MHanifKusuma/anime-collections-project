@@ -72,7 +72,9 @@ const Home = () => {
                 ""
               )}
 
-              <Link to="#">More info...</Link>
+              <Link to={`/anime-detail/${anime.id}/${anime.title.romaji}`}>
+                More info...
+              </Link>
             </div>
           </AnimeListWrapper>
         ))}

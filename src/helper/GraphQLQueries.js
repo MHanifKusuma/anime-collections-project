@@ -17,6 +17,7 @@ export const INITIAL_ANIME_LOAD = gql`
         type: ANIME
         isAdult: false
       ) {
+        id
         title {
           romaji
         }
@@ -33,6 +34,37 @@ export const INITIAL_ANIME_LOAD = gql`
           episode
         }
       }
+    }
+  }
+`;
+
+export const GET_DETAIL_ANIME = gql`
+  query InitialAnime($id: Int) {
+    Media(id: $id, isAdult: false) {
+      id
+      title {
+        romaji
+        english
+      }
+      status
+      description
+      startDate {
+        month
+        year
+      }
+      endDate {
+        month
+        year
+      }
+      episodes
+      coverImage {
+        extraLarge
+      }
+      nextAiringEpisode {
+        episode
+      }
+      genres
+      meanScore
     }
   }
 `;
