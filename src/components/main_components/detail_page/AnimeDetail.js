@@ -102,7 +102,6 @@ const AnimeDetail = () => {
       }
       return null;
     });
-    console.log(checkName);
 
     if (checkName.length === 0) {
       getCollection.animeCollections.push(newCollection);
