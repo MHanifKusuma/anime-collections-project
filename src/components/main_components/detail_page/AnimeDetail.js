@@ -96,15 +96,26 @@ const AnimeDetail = () => {
     };
 
     const getCollection = JSON.parse(localStorage.getItem("collections"));
-    getCollection.animeCollections.push(newCollection);
+    const checkName = getCollection.animeCollections.filter((value) => {
+      if (value === newCollection) {
+        return value;
+      }
+    });
 
-    localStorage.setItem("collections", JSON.stringify(getCollection));
+    if (!checkName) {
+      getCollection.animeCollections.push(newCollection);
 
-    e.preventDefault();
+      localStorage.setItem("collections", JSON.stringify(getCollection));
 
-    setNewCollectionModalOpen(false);
+      e.preventDefault();
 
-    addAnimeToCollection(newCollection.collectionName);
+      setNewCollectionModalOpen(false);
+
+      addAnimeToCollection(newCollection.collectionName);
+    } else {
+      alert("Collection already exist");
+      e.preventDefault();
+    }
   };
 
   const addAnimeToCollection = (collectionName) => {
