@@ -7,3 +7,51 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background-color: rgb(65, 60, 105);
 }
+
+.collection-modal {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 10px 30px 50px 30px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.collection-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.collection-modal-header {
+  text-align: center;
+}
+
+.collection-modal-list {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.collection-modal-item {
+  max-width: 45%;
+  cursor: pointer;
+  margin: auto;
+  transition: all 0.15s ease-in-out;
+}
+
+.collection-modal-item:hover {
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, .5);
+}
+
+.collection-modal-item img {
+  max-width: 100%;
+}
+.collection-modal-footer p{
+  font-weight: 600;
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import AnimeDetailWrapper, { DetailInfo } from "./AnimeDetailStyle";
 import { GET_DETAIL_ANIME } from "../../../helper/GraphQLQueries";
@@ -10,9 +10,15 @@ import { smile } from "react-icons-kit/icomoon/smile";
 import { neutral } from "react-icons-kit/icomoon/neutral";
 import { wondering } from "react-icons-kit/icomoon/wondering";
 import { sad } from "react-icons-kit/icomoon/sad";
+import Modal from "react-modal/lib/components/Modal";
+Modal.setAppElement("#root");
 
 const AnimeDetail = () => {
   const { id } = useParams();
+  const [CollectionModalOpen, setCollectionModalOpen] = useState(false);
+  const [newCollectionModalOpen, setNewCollectionModalOpen] = useState(false);
+  const [newCollectionName, setNewCollectionName] = useState("");
+  const [successModal, setSuccessModal] = useState(false);
 
   const { loading, error, data } = useQuery(GET_DETAIL_ANIME, {
     variables: { id: id },
@@ -27,7 +33,7 @@ const AnimeDetail = () => {
   if (loading)
     return (
       <AnimeDetailWrapper>
-        <h3>Loading....</h3>;
+        <h3>Loading....</h3>
       </AnimeDetailWrapper>
     );
 
@@ -52,8 +58,77 @@ const AnimeDetail = () => {
     ? new Date(anime.endDate.year, anime.endDate.month - 1)
     : null;
 
+  const AddToCollection = () => {
+    setCollectionModalOpen(true);
+    console.log(`open modal click: ${CollectionModalOpen}`);
+  };
+
+  const closeCollectionModal = () => {
+    setCollectionModalOpen(false);
+  };
+
+  const openNewCollectionModal = () => {
+    setNewCollectionModalOpen(true);
+  };
+
+  const closeNewCollectionModal = () => {
+    setNewCollectionModalOpen(false);
+  };
+
+  const openSuccessModal = () => {
+    setSuccessModal(true);
+  };
+
+  const closeSuccessModal = () => {
+    setSuccessModal(false);
+  };
+
+  const handleNewCollectionNameChange = (e) => {
+    setNewCollectionName(e.target.value);
+    console.log(e.target.value);
+  };
+
+  const handleNewCollectionSubmit = (e) => {
+    const newCollection = {
+      collectionName: newCollectionName,
+      collectionBanner: anime.coverImage.extraLarge,
+      animes: [],
+    };
+
+    const getCollection = JSON.parse(localStorage.getItem("collections"));
+    getCollection.animeCollections.push(newCollection);
+
+    localStorage.setItem("collections", JSON.stringify(getCollection));
+
+    e.preventDefault();
+
+    setNewCollectionModalOpen(false);
+
+    addAnimeToCollection(newCollection.collectionName);
+  };
+
+  const addAnimeToCollection = (collectionName) => {
+    const getCollection = JSON.parse(localStorage.getItem("collections"));
+
+    const addAnime = {
+      id: anime.id,
+      title: anime.title.romaji,
+      banner: anime.coverImage.extraLarge,
+    };
+
+    for (var i = 0; i < getCollection.animeCollections.length; i++) {
+      if (getCollection.animeCollections[i].collectionName === collectionName) {
+        getCollection.animeCollections[i].animes.push(addAnime);
+        console.log(getCollection.animeCollections[i]);
+        localStorage.setItem("collections", JSON.stringify(getCollection));
+        closeCollectionModal();
+        openSuccessModal();
+      }
+    }
+  };
+
   return (
-    <AnimeDetailWrapper>
+    <AnimeDetailWrapper id="animeDetail">
       <img src={anime.coverImage.extraLarge} alt="anime cover img" />
 
       <h2>{anime.title.romaji}</h2>
@@ -146,20 +221,84 @@ const AnimeDetail = () => {
           <p dangerouslySetInnerHTML={{ __html: anime.description }}></p>
         </div>
 
-        <div className="collection">
-          In collection:
-          <ul>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-            <li>4</li>
-          </ul>
-        </div>
+        <div className="collection">In collection:</div>
       </DetailInfo>
 
       <div className="addToCollection">
-        <Button>Add to Collection</Button>
+        <Button onClick={AddToCollection}>Add to Collection</Button>
       </div>
+
+      <Modal
+        isOpen={CollectionModalOpen}
+        className="collection-modal"
+        overlayClassName="collection-modal-overlay"
+        onRequestClose={closeCollectionModal}
+      >
+        <div className="collection-modal-header">
+          <h3>Add anime to a collection!</h3>
+          <p>{anime.title.romaji}</p>
+        </div>
+
+        <hr />
+
+        <div className="collection-modal-list">
+          {JSON.parse(localStorage.getItem("collections")).animeCollections
+            .length > 0 ? (
+            JSON.parse(
+              localStorage.getItem("collections")
+            ).animeCollections.map((collection, index) => (
+              <div
+                className="collection-modal-item"
+                key={index}
+                onClick={() => addAnimeToCollection(collection.collectionName)}
+              >
+                <img
+                  src={collection.collectionBanner}
+                  alt="collection banner"
+                />
+                <p>{collection.collectionName}</p>
+              </div>
+            ))
+          ) : (
+            <p>No collection yet</p>
+          )}
+        </div>
+
+        <hr />
+
+        <div className="collection-modal-footer">
+          <p>Or add to anime to a new collection!</p>
+          <Button onClick={openNewCollectionModal}>Make new collection</Button>
+        </div>
+      </Modal>
+      <Modal
+        isOpen={newCollectionModalOpen}
+        className="collection-modal"
+        overlayClassName="collection-modal-overlay"
+        onRequestClose={closeNewCollectionModal}
+      >
+        <div className="collection-modal-header">
+          <h3>Please insert new collection name</h3>
+          <form onSubmit={handleNewCollectionSubmit}>
+            <input
+              type="text"
+              autoFocus
+              onChange={handleNewCollectionNameChange}
+            />
+            <Button type="submit">Submit</Button>
+          </form>
+        </div>
+      </Modal>
+      <Modal
+        isOpen={successModal}
+        className="collection-modal"
+        overlayClassName="collection-modal-overlay"
+        onRequestClose={closeSuccessModal}
+      >
+        <div className="collection-modal-header">
+          <h3>Add anime to collection success!</h3>
+        </div>
+      </Modal>
     </AnimeDetailWrapper>
   );
 };

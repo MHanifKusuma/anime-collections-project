@@ -7,6 +7,13 @@ import Home from "./home_page/Home";
 import MainWrapper from "./MainStyle";
 
 const MainComponent = () => {
+  if (!localStorage.getItem("collections")) {
+    const newCollection = {
+      animeCollections: [],
+    };
+    localStorage.setItem("collections", JSON.stringify(newCollection));
+  }
+
   return (
     <MainWrapper>
       <Header />
