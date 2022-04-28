@@ -97,13 +97,14 @@ const AnimeDetail = () => {
 
     const getCollection = JSON.parse(localStorage.getItem("collections"));
     const checkName = getCollection.animeCollections.filter((value) => {
-      if (value === newCollection) {
+      if (value.collectionName === newCollection.collectionName) {
         return value;
       }
       return null;
     });
+    console.log(checkName);
 
-    if (!checkName) {
+    if (checkName.length === 0) {
       getCollection.animeCollections.push(newCollection);
 
       localStorage.setItem("collections", JSON.stringify(getCollection));
