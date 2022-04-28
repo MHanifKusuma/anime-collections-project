@@ -6,4 +6,7 @@ export const HeaderWrapper = styled.header`
   h1 {
     color: white;
   }
+  a {
+    text-decoration: none;
+  }
 `;
