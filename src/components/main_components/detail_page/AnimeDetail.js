@@ -100,6 +100,7 @@ const AnimeDetail = () => {
       if (value === newCollection) {
         return value;
       }
+      return null;
     });
 
     if (!checkName) {
