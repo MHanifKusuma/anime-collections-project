@@ -60,7 +60,6 @@ const AnimeDetail = () => {
 
   const AddToCollection = () => {
     setCollectionModalOpen(true);
-    console.log(`open modal click: ${CollectionModalOpen}`);
   };
 
   const closeCollectionModal = () => {
@@ -85,7 +84,6 @@ const AnimeDetail = () => {
 
   const handleNewCollectionNameChange = (e) => {
     setNewCollectionName(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleNewCollectionSubmit = (e) => {
@@ -131,7 +129,7 @@ const AnimeDetail = () => {
     for (var i = 0; i < getCollection.animeCollections.length; i++) {
       if (getCollection.animeCollections[i].collectionName === collectionName) {
         getCollection.animeCollections[i].animes.push(addAnime);
-        console.log(getCollection.animeCollections[i]);
+
         localStorage.setItem("collections", JSON.stringify(getCollection));
         closeCollectionModal();
         openSuccessModal();

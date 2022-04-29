@@ -20,6 +20,15 @@ export const CollectionCardWrapper = styled.div`
     padding: 5%;
     transition: all 0.15s ease-in-out;
 
+    @media only screen and (min-width: 768px) {
+      max-width: 20%;
+    }
+    @media only screen and (min-width: 991px) {
+      max-width: 15%;
+    }
+    @media only screen and (min-width: 1024px) {
+      max-width: 10%;
+    }
     img {
       max-width: 100%;
     }

@@ -38,7 +38,6 @@ const Home = () => {
   };
 
   const handlePageChange = (event) => {
-    console.log(`page selected ${event.selected}`);
     setPage(event.selected);
   };
 

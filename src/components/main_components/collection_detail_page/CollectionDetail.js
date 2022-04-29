@@ -34,8 +34,6 @@ const CollectionDetail = () => {
 
     animes.splice(removeAnime, 1);
 
-    console.log(getCollection);
-
     localStorage.setItem("collections", JSON.stringify(getCollection));
     closeDeleteModal();
   };

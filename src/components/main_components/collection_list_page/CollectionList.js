@@ -41,7 +41,6 @@ const CollectionList = () => {
 
   const handleNewCollectionNameChange = (e) => {
     setNewCollectionName(e.target.value);
-    console.log(e.target.value);
   };
 
   const handleNewCollectionSubmit = (e) => {
@@ -76,7 +75,6 @@ const CollectionList = () => {
 
   const removeCollection = () => {
     const getCollection = JSON.parse(localStorage.getItem("collections"));
-    console.log(getCollection.animeCollections.collectionName);
 
     const removingIndex = getCollection.animeCollections.findIndex(
       (remove) => remove.collectionName === removedCollection
@@ -101,7 +99,10 @@ const CollectionList = () => {
           JSON.parse(localStorage.getItem("collections")).animeCollections.map(
             (collection, index) => (
               <div key={index} className="collection-card">
-                <Link key={index} to="#">
+                <Link
+                  key={index}
+                  to={`/my-collections/collection-detail/${collection.collectionName}`}
+                >
                   <div>
                     <img
                       src={collection.collectionBanner}
@@ -158,9 +159,11 @@ const CollectionList = () => {
         onRequestClose={closeDeleteModal}
       >
         <div className="collection-modal-header">
-          <h3>delete this collection?</h3>
+          <h3>Delete this collection?</h3>
           <p>This process can't be undone</p>
-          <Button onClick={removeCollection}>Delete</Button>
+          <Button className="danger" onClick={removeCollection}>
+            Delete
+          </Button>
         </div>
       </Modal>
     </CollectionListWrapper>
