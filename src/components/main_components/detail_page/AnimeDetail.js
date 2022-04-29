@@ -181,7 +181,13 @@ const AnimeDetail = () => {
         </p>
 
         <p className="episodes">
-          Episodes : {anime.episodes || anime.nextAiringEpisode.episode}
+          {console.log(anime)}
+          Episodes :{" "}
+          {anime.episodes
+            ? anime.episodes
+            : anime.nextAiringEpisode
+            ? anime.nextAiringEpisode.episode
+            : "Coming Soon"}
         </p>
 
         <div className="score">
