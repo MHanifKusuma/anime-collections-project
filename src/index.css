@@ -55,3 +55,7 @@ body {
 .collection-modal-footer p{
   font-weight: 600;
 }
+
+button.danger {
+  background-color: rgba(254, 130, 130, 1);
+}
