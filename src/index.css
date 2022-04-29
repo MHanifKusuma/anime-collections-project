@@ -8,6 +8,12 @@ body {
   background-color: rgb(65, 60, 105);
 }
 
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .collection-modal {
   position: absolute;
   top: 40px;
