@@ -158,7 +158,7 @@ const CollectionList = () => {
       </Modal>
       <Modal
         isOpen={deleteModalOpen}
-        className="collection-modal"
+        className="collection-modal collection-modal-sm"
         overlayClassName="collection-modal-overlay"
         onRequestClose={closeDeleteModal}
       >
