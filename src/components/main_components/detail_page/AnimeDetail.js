@@ -181,7 +181,6 @@ const AnimeDetail = () => {
         </p>
 
         <p className="episodes">
-          {console.log(anime)}
           Episodes :{" "}
           {anime.episodes
             ? anime.episodes
@@ -192,8 +191,11 @@ const AnimeDetail = () => {
 
         <div className="score">
           <p>User score: &nbsp;</p>
+          {console.log(anime)}
 
-          {anime.meanScore > 80 ? (
+          {anime.meanScore === null ? (
+            <p>N/A</p>
+          ) : anime.meanScore > 80 ? (
             <p>
               {anime.meanScore}% &nbsp;
               <span>
@@ -205,6 +207,13 @@ const AnimeDetail = () => {
               {anime.meanScore}% &nbsp;
               <span>
                 <Icon icon={smile} size={25} />
+              </span>
+            </p>
+          ) : anime.meanScore === 50 ? (
+            <p>
+              {anime.meanScore}% &nbsp;
+              <span>
+                <Icon icon={neutral} size={25} />
               </span>
             </p>
           ) : anime.meanScore < 50 ? (
@@ -222,12 +231,7 @@ const AnimeDetail = () => {
               </span>
             </p>
           ) : (
-            <p>
-              {anime.averageScore}% &nbsp;
-              <span>
-                <Icon icon={neutral} size={25} />
-              </span>
-            </p>
+            "N/A"
           )}
         </div>
 
@@ -268,7 +272,11 @@ const AnimeDetail = () => {
                 onClick={() => addAnimeToCollection(collection.collectionName)}
               >
                 <img
-                  src={collection.collectionBanner}
+                  src={
+                    typeof collection.animes[0] !== "undefined"
+                      ? collection.animes[0].banner
+                      : collection.collectionBanner
+                  }
                   alt="collection banner"
                 />
                 <p>{collection.collectionName}</p>
