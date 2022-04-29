@@ -13,12 +13,22 @@ body {
   top: 40px;
   left: 40px;
   right: 40px;
+  bottom: 40px;
   background-color: rgba(255, 255, 255, 1);
   padding: 10px 30px 50px 30px;
   border-radius: 20px;
   text-align: center;
+  overflow: auto;
 }
 
+.collection-modal-sm {
+  top: 160px;
+  bottom: auto;
+}
+
+.collection-modal::-webkit-scrollbar{
+  display: none;
+}
 .collection-modal-overlay {
   position: fixed;
   top: 0;

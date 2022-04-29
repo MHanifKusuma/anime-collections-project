@@ -140,7 +140,6 @@ const AnimeDetail = () => {
   return (
     <AnimeDetailWrapper id="animeDetail">
       <img src={anime.coverImage.extraLarge} alt="anime cover img" />
-
       <h2>{anime.title.romaji}</h2>
       {anime.title.english && (
         <h4>
@@ -283,7 +282,7 @@ const AnimeDetail = () => {
       </Modal>
       <Modal
         isOpen={newCollectionModalOpen}
-        className="collection-modal"
+        className="collection-modal collection-modal-sm"
         overlayClassName="collection-modal-overlay"
         onRequestClose={closeNewCollectionModal}
       >
@@ -301,7 +300,7 @@ const AnimeDetail = () => {
       </Modal>
       <Modal
         isOpen={successModal}
-        className="collection-modal"
+        className="collection-modal collection-modal-sm"
         overlayClassName="collection-modal-overlay"
         onRequestClose={closeSuccessModal}
       >

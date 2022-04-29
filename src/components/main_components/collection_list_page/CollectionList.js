@@ -104,8 +104,13 @@ const CollectionList = () => {
                   to={`/my-collections/collection-detail/${collection.collectionName}`}
                 >
                   <div>
+                    {console.log(collection.animes[0])}
                     <img
-                      src={collection.collectionBanner}
+                      src={
+                        typeof collection.animes[0] !== "undefined"
+                          ? collection.animes[0].banner
+                          : collection.collectionBanner
+                      }
                       alt="collection banner"
                     />
                     <p>{collection.collectionName}</p>
@@ -126,7 +131,7 @@ const CollectionList = () => {
 
       <Modal
         isOpen={newCollectionModalOpen}
-        className="collection-modal"
+        className="collection-modal collection-modal-sm"
         overlayClassName="collection-modal-overlay"
         onRequestClose={closeNewCollectionModal}
       >
@@ -144,7 +149,7 @@ const CollectionList = () => {
       </Modal>
       <Modal
         isOpen={successModal}
-        className="collection-modal"
+        className="collection-modal collection-modal-sm"
         overlayClassName="collection-modal-overlay"
         onRequestClose={closeSuccessModal}
       >
