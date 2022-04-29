@@ -104,7 +104,6 @@ const CollectionList = () => {
                   to={`/my-collections/collection-detail/${collection.collectionName}`}
                 >
                   <div>
-                    {console.log(collection.animes[0])}
                     <img
                       src={
                         typeof collection.animes[0] !== "undefined"
